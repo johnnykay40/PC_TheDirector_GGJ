@@ -107,7 +107,7 @@ public class CharacterMovementGeneral : MonoBehaviour
         if (!collision.onWall || collision.onGround)
             wallSlide = false;
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Space"))
         {
             characterAnim.SetTrigger("jump");
 
@@ -258,7 +258,7 @@ public class CharacterMovementGeneral : MonoBehaviour
         }
         else
         {
-            characterRb.velocity = Vector2.Lerp(characterRb.velocity, (new Vector2(dir.x * characterSpeed, characterRb.velocity.y)), wallJumpLerp * Time.deltaTime);
+            characterRb.velocity = Vector2.Lerp(characterRb.velocity, (new Vector2(dir.x * characterSpeed, characterRb.velocity.y)), characterWallJumpLerp * Time.deltaTime);
         }
     }
 
