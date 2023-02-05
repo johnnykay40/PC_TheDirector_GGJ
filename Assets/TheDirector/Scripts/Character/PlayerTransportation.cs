@@ -20,19 +20,14 @@ public class PlayerTransportation : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Entro");
-
+        
         if (collision.CompareTag("Teleporter"))
         {
             currentTeleporter = collision.gameObject;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Entro aca");        
-    }
-
+  
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Teleporter"))
