@@ -4,38 +4,39 @@ using UnityEngine;
 
 public class PlayerTransportation : MonoBehaviour
 {
-    private GameObject currentTeleporter;
+    [SerializeField] private float moveVelocity = 1f;
+    private Teleporter currentTeleporter;
+    private Rigidbody2D rb;
+    private bool isMoving;
 
     // Update is called once per frame
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!isMoving)
+            return;
+
+        rb.velocity = (currentTeleporter.transform.position - transform.position).normalized * moveVelocity;
+        if((currentTeleporter.transform.position - transform.position).magnitude < 0.5f)
         {
-            if (currentTeleporter != null)
-            {
-                transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
-            }
-        }
+            isMoving = false;
+            rb.velocity = Vector2.zero;
+        } 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void MoveTo(Teleporter teleporter)
     {
-        
-        if (collision.CompareTag("Teleporter"))
-        {
-            currentTeleporter = collision.gameObject;
-        }
-    }
+        if (isMoving)
+            return;
 
-  
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Teleporter"))
-        {
-            if (collision.gameObject == currentTeleporter)
-            {
-                currentTeleporter = null;
-            }
-        }
+        if (currentTeleporter != null && !currentTeleporter.IsDestination(teleporter))
+            return;
+
+        currentTeleporter = teleporter;
+        isMoving = true;
     }
 }

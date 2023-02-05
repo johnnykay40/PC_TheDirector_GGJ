@@ -13,7 +13,10 @@ public class AIDetector : MonoBehaviour
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private LayerMask visibilityLayer;
 
+
     [field: SerializeField]
+
+
     
     public bool TargetVisible
     {
