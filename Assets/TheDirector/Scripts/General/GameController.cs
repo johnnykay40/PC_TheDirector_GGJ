@@ -13,12 +13,15 @@ public class GameController : MonoBehaviour
     public Sprite winSprite;
     public Sprite loseSprite;
     public GameObject finalUI;
+    public GameObject startUI;
+
 
     public bool gamePause;
 
     public void StartGame()
     {
         //Boton UI
+        
         gamePause = false;
         OnStartGame?.Invoke(true);
     }
@@ -31,15 +34,25 @@ public class GameController : MonoBehaviour
 
     public void Win()
     {
+        PauseGame();
         finalUI.SetActive(true);
-        finishGameImg.sprite = winSprite;
+        //finishGameImg.sprite = winSprite;
         Debug.Log("Ganaste");
     }
 
     public void GameOver()
     {
+        PauseGame();
         finalUI.SetActive(true);
-        finishGameImg.sprite = loseSprite;
+        //finishGameImg.sprite = loseSprite;
+        Debug.Log("Perdiste");
+    }
+
+    public void PlayGame()
+    {
+        PauseGame();
+        startUI.SetActive(true);
+        //finishGameImg.sprite = loseSprite;
         Debug.Log("Perdiste");
     }
 
@@ -54,21 +67,20 @@ public class GameController : MonoBehaviour
         Debug.Log("You Left");
     }
 
-    //public void ResetScene()
-    //{
-    //    timeController.Reset();
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    //}
+    public void ResetScene()
+    {
+        finalUI.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
-    //private void OnEnable()
-    //{
-    //    timeController.OnTimeOut += ProcessTime;
-    //    scoreController.OnFinalScore += Win;
-    //}
+    private void OnEnable()
+    {
+    
+     scoreController.OnFinalScore += Win;
+    }
 
-    //private void OnDisable()
-    //{
-    //    timeController.OnTimeOut -= ProcessTime;
-    //    scoreController.OnFinalScore -= Win;
-    //}
+    private void OnDisable()
+    {
+     scoreController.OnFinalScore -= Win;
+    }
 }

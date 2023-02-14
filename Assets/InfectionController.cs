@@ -20,7 +20,6 @@ public class InfectionController : MonoBehaviour
         if (infection >= maxInfection)
         {
             Destroy(gameObject);
-            //activar panel de game over
             gameController.GameOver();
         }
     }
