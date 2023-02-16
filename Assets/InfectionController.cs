@@ -26,7 +26,7 @@ public class InfectionController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Enemy enemy = collision.collider.GetComponentInChildren<Enemy>();
+        Enemy enemy = collision.collider.GetComponent<Enemy>();
         if(enemy != null)
         {
             Debug.Log(enemy.name);
