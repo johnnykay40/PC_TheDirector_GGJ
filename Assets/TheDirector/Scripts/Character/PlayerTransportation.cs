@@ -4,27 +4,23 @@ using UnityEngine;
 
 public class PlayerTransportation : MonoBehaviour
 {
-    [SerializeField] private float moveVelocity = 1f;
+    [Range(20, 150), SerializeField] private float moveVelocity;
     private Teleporter currentTeleporter;
-    private Rigidbody2D rb;
+    private Rigidbody2D rigidbodyPlayer;
     private bool isMoving;
 
-    // Update is called once per frame
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
+    private void Awake() => rigidbodyPlayer = GetComponent<Rigidbody2D>();
 
     void Update()
     {
         if (!isMoving)
             return;
 
-        rb.velocity = (currentTeleporter.transform.position - transform.position).normalized * moveVelocity;
+        rigidbodyPlayer.velocity = (currentTeleporter.transform.position - transform.position).normalized * moveVelocity;
         if((currentTeleporter.transform.position - transform.position).magnitude < 0.5f)
         {
             isMoving = false;
-            rb.velocity = Vector2.zero;
+            rigidbodyPlayer.velocity = Vector2.zero;
         } 
     }
 
